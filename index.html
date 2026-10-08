@@ -702,7 +702,7 @@ function renderPlan(){
   $("#heroDish").textContent=st.length; $("#heroDishLbl").textContent=st.length===1?"prato nesse dia":"pratos nesse dia";
   const allSaved=st.length&&st.every(x=>x.saved&&x.saved.final===x.final);
   $("#planSaved").innerHTML= allSaved?`<span class="badge">Plano confirmado</span>`:"";
-  $("#planSub").textContent = st.length ? (st.some(x=>!x.P.n)?"Alguns pratos ainda não têm histórico. Use sua experiência e registre o resultado.":"Sugestão calculada com o seu histórico e regras iniciais, que ainda precisam ser validadas num piloto. A decisão final é sua.") : "";
+  $("#planSub").textContent = st.length ? (st.some(x=>!x.P.n)?"Alguns pratos ainda não têm histórico. Use sua experiência.":"Sugestão com base no seu histórico. A decisão final é sua.") : "";
   if(!st.length){ $("#planCards").innerHTML=`<div class="box"><b>Nenhum prato cadastrado para ${DIAS[wd(t)]}.</b> <button type="button" class="linkbtn" data-go="cfg">Cadastrar pratos</button></div>`; $("#planAsks").innerHTML=""; bindGo(); return; }
   // perguntas
   const asks=[], seen=new Set();
@@ -717,11 +717,12 @@ function renderPlan(){
     const vendas=P.rows.map(x=>x.r.vendidas-(x.r.encomendas||0));
     const ac=P.rows.filter(x=>x.r.acabou===true);
     let why="";
-    if(!P.n) why=`<p>Ainda sem histórico desse prato. Prepare pela sua experiência e registre: a partir de 3 semanas a sugestão fica confiável.</p>`;
+    if(!P.n) why=`<p>Sem histórico ainda. Use sua experiência e registre o resultado.</p>`;
     else{
-      why+= P.modo==="semana" ? `<p>Nas últimas ${P.n} ${DIAS_PL[wd(t)]}, sem contar encomendas, vendeu ${vendas.join(", ")}.</p>` : `<p>Ainda há poucas ${DIAS_PL[wd(t)]} registradas, então usei os últimos ${P.n} dias de serviço: ${vendas.join(", ")}.</p>`;
-      if(ac.length) why+=`<p>${ac.length===1?"Em um desses dias":"Em "+ac.length+" desses dias"} acabou cedo (${ac.map(x=>fmt(x.r.data)+" às "+(x.r.acabouAs||"?")).join("; ")}). ${P.rows.some(x=>x.estimado)?`Nesses casos a procura real foi maior que a venda, então <b>estimei</b> a procura ${P.rows.filter(x=>x.estimado).map(x=>"+"+Math.round((uplift(x.r.acabouAs)-1)*100)+"%").join(" e ")} acima da venda (até ${upPct()}% quando acaba logo no início). É uma premissa inicial, não uma medição.`:`Você informou quantos clientes pediram depois que acabou, e esse número foi somado à venda.`}</p>`;
-      why+=`<p>Média com mais peso nas semanas recentes: <b>${Math.round(P.base)}</b>. Somei <b>${P.margem}</b> de folga${enc?` e <b>${enc}</b> de encomenda`:""}.</p>`;
+      const est=P.rows.filter(x=>x.estimado).map(x=>Math.round((uplift(x.r.acabouAs)-1)*100)), inf=P.rows.some(x=>x.informado);
+      const faixa=est.length?(Math.min(...est)===Math.max(...est)?`+${est[0]}%`:`+${Math.min(...est)}% a +${Math.max(...est)}%`):"";
+      why=`<p>${P.modo==="semana"?`Últimas ${P.n} ${DIAS_PL[wd(t)]}`:`Últimos ${P.n} dias`}: ${vendas.join(", ")}.${ac.length?` Acabou cedo ${ac.length}x${est.length?` (procura estimada ${faixa}, premissa)`:inf?" (procura informada)":""}.`:""}</p>
+      <p>Média <b>${Math.round(P.base)}</b> + <b>${P.margem}</b> de folga${enc?` + <b>${enc}</b> de encomenda`:""}.</p>`;
     }
     return `<div class="card-w plan-card" data-p="${p.id}" data-sug="${P.sug}">
       <h3>${esc(p.nome)}</h3><div style="margin-top:8px"><span class="conf ${P.conf}">${{alta:"Confiança alta",media:"Confiança média",baixa:"Confiança baixa"}[P.conf]}</span></div>
@@ -739,8 +740,8 @@ function renderPlan(){
       ${P.n?`<details><summary>Como o número foi calculado</summary><div class="tablebox" style="margin-top:10px"><table>
         <tr><th>Dia</th><th>Vendas avulsas</th><th>Procura estimada</th><th>Peso</th><th></th></tr>
         ${P.rows.map((x,i)=>`<tr><td>${fmt(x.r.data)}</td><td class="n">${x.r.vendidas-(x.r.encomendas||0)}</td><td class="n">${x.v.toFixed(1)}</td><td>${i+1}</td><td>${x.nota?`<span class="badge ${x.pend?"y":""}">${x.nota}</span>`:""}</td></tr>`).join("")}
-      </table></div><p class="hint"><b>Regras usadas.</b> Média dos mesmos dias da semana, com peso maior para os mais recentes. Folga = variação entre semanas (±${P.sd.toFixed(1)}) × ${P.fator.toFixed(2)}, mínimo 1; o fator vai de 0,7 a 1,2 conforme a margem do prato (R$ ${p.preco} de preço, R$ ${p.custo} de custo), porque faltar custa mais quando o lucro é maior. Quando o prato acabou cedo e ninguém anotou quantos pediram depois, a procura é aumentada em até ${upPct()}%, menos quanto mais perto do fim do almoço.</p>
-      <p class="hint"><b>Limites.</b> São regras iniciais para testar num piloto, não percentuais comprovados. O aumento de até ${upPct()}% é uma premissa ajustável em Meu restaurante; o ideal é substituí-la anotando quantos clientes pediram depois que acabou. A faixa provável repete a variação das semanas anteriores e não garante que a venda ficará dentro dela.</p></details>`:""}
+      </table></div><p class="hint"><b>Regras.</b> Média dos mesmos dias da semana, com mais peso para os recentes. Folga = variação (±${P.sd.toFixed(1)}) × ${P.fator.toFixed(2)}, maior para pratos com mais lucro.</p>
+      <p class="hint"><b>Limites.</b> Regras iniciais, a validar num piloto. O aumento de até ${upPct()}% quando acaba cedo é uma premissa (ajustável em Meu restaurante), não um valor comprovado.</p></details>`:""}
     </div>`;}).join("");
 }
 function setQty(c,v){ const k=pkey(planDate,c.dataset.p); v=Math.max(0,Math.round(v||0)); edits[k]={...(edits[k]||{}),final:v}; c.querySelector(".qty").value=v;
