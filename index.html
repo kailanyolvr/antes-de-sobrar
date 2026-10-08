@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Antes de Sobrar</title>
 <meta name="description" content="Ajuda pequenos restaurantes e marmitarias a decidir quanto preparar amanhã, com base no próprio histórico.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 38 30'><rect x='1' y='2' width='36' height='6' rx='3' fill='%23EA1D2C'/><path d='M4 11h30l-3 15a3 3 0 0 1-3 2.4H10A3 3 0 0 1 7 26z' fill='%23EA1D2C'/><path d='M13 18c2 2.4 10 2.4 12 0' stroke='white' stroke-width='2.6' fill='none' stroke-linecap='round'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍱</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
@@ -182,6 +182,49 @@ td.n{font-family:var(--display);font-weight:700}
 .good{color:var(--sold)}.bad{color:var(--brand)}
 .chart{display:block;height:auto;max-width:none}
 
+/* ---------- painel de resultados ---------- */
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin-bottom:10px}
+.eyebrow.dark{color:var(--brand);opacity:1}
+.dash-hero{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:22px;margin-bottom:38px}
+.dash-hero .panel-red{min-height:0;padding:36px 40px 34px 64px}
+.dash-hero .panel-red p{opacity:.95}
+.gain{position:relative;overflow:hidden;background:var(--cream);border-radius:0 40px 0 0;padding:30px 28px;display:flex;flex-direction:column;justify-content:center}
+.gain-num{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5vw,3.4rem);line-height:1;color:var(--ink);position:relative}
+.gain-num small{font-size:.4em;color:var(--muted);font-weight:700;margin-left:6px}
+.gain .hint{position:relative;max-width:30ch}
+.gain-shapes .g-half{position:absolute;right:-30px;bottom:-30px;width:120px;height:120px;border-radius:50%;background:var(--sun);opacity:.9}
+.gain-shapes .g-arc{position:absolute;right:30px;top:-60px;width:140px;height:140px;border-radius:50%;border:3px solid var(--sun);border-left-color:transparent;border-top-color:transparent}
+.gain>*:not(.gain-shapes){position:relative;z-index:1}
+.sec-h{font-size:1.45rem;font-weight:800;margin:0 0 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec-h .hint{font-family:var(--body);font-weight:500}
+.metric .exp{font-size:.84rem;color:var(--muted);margin:10px 0 0;line-height:1.4}
+.dash-2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:8px 0 38px}
+.ins-list,.act-list{display:grid;gap:12px}
+.ins{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--muted);border-radius:4px 10px 10px 4px;padding:16px 18px;box-shadow:var(--shadow)}
+.ins.good{border-left-color:var(--sold)}.ins.warn{border-left-color:var(--sun)}.ins.bad{border-left-color:var(--brand)}.ins.info{border-left-color:#5B7FDB}
+.ins .k{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.ins.good .k{color:var(--sold)}.ins.warn .k{color:#9A6300}.ins.bad .k{color:var(--brand)}.ins.info .k{color:#3D63C9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ins.warn .k{color:var(--sun)} :root:not([data-theme="light"]) .ins.info .k{color:#8FA9F0}}
+.ins b.t{display:block;font-family:var(--display);font-size:1.12rem;margin:4px 0 4px}
+.ins p{margin:0;font-size:.94rem;color:var(--muted)}
+.act{display:grid;grid-template-columns:auto 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow)}
+.act .num{width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800}
+.act b.t{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:4px}
+.act p{margin:0 0 6px;font-size:.94rem;color:var(--muted)}
+.act .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.84rem}
+.prio{font-weight:800;font-size:.74rem;padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+.prio.alta{background:var(--brand);color:#fff}.prio.media{background:var(--sun);color:#3B2A00}.prio.baixa{background:var(--sunk);color:var(--muted);border:1px solid var(--line)}
+.imp{color:var(--sold);font-weight:700}
+.status{font-weight:800;font-size:.78rem;padding:3px 10px;border-radius:999px}
+.status.ok{background:var(--sold-soft);color:var(--sold)}.status.at{background:var(--sun-soft);color:#8A5A00}.status.cr{background:var(--brand-soft);color:var(--brand)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .status.at{color:var(--sun)}}
+#dishTbl td:nth-child(2),#dishTbl th:nth-child(2){text-align:left}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.88rem}
+.legend span{display:inline-flex;gap:7px;align-items:flex-start}
+.legend i{width:16px;height:14px;border-radius:3px;display:inline-block;margin-top:3px;flex:none}
+details.card-w summary{font-family:var(--display);font-size:1.15rem}
+@media (max-width:900px){ .dash-hero,.dash-2{grid-template-columns:1fr} .dash-hero .panel-red{padding:30px 24px 28px 34px} }
+
 /* ---------- restaurante ---------- */
 .dish-row{display:grid;grid-template-columns:minmax(0,2.2fr) 110px 110px auto;gap:12px;align-items:end;padding:18px 0;border-bottom:1px solid var(--line)}
 .dish-row .days{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -230,7 +273,7 @@ td.n{font-family:var(--display);font-weight:700}
   <div class="start">
     <div>
       <h1 class="tag-h">Prepare o que vai vender</h1>
-      <p class="lede">Registre o almoço em um minuto por dia. Com o seu histórico, o app sugere quanto preparar de cada prato amanhã, explica o motivo e mostra se a sobra está caindo sem faltar comida.</p>
+      <p class="lede">Registre o almoço em um minuto por dia. Com o seu histórico, o app sugere quanto preparar de cada prato amanhã, explica o motivo e mostra se o desperdício está caindo sem faltar comida.</p>
       <ol class="steps">
         <li><b class="n">1</b><span>Cadastre o restaurante e os pratos, com preço e custo.</span></li>
         <li><b class="n">2</b><span>Ao fim de cada dia, registre quanto preparou, vendeu e se acabou cedo.</span></li>
@@ -299,23 +342,64 @@ td.n{font-family:var(--display);font-weight:700}
 
 <!-- RESULTADOS -->
 <section class="view" id="v-res" hidden>
-  <div class="head"><h2 class="tag-h">A sobra caiu sem faltar comida?</h2><p class="lede muted" id="resLede"></p></div>
-  <div class="chips" id="resFilter" role="group" aria-label="Filtrar por prato" style="margin-bottom:24px"></div>
-  <div class="metrics" id="metrics"></div>
-  <div class="card-w">
-    <h3>Dia a dia</h3>
-    <p class="sub">Cada barra é o que foi preparado. Verde vendeu, amarelo sobrou, contorno amarelo foi doado ou reaproveitado, marca vermelha acabou cedo. Fundo rosado: dia com plano confirmado.</p>
-    <div class="tablebox" id="chartBox"></div>
-  </div>
-  <div class="card-w" style="margin-top:22px">
-    <h3>Plano confirmado x o que aconteceu</h3>
-    <div class="tablebox" style="margin-top:12px"><table id="pvr"></table></div>
+  <div class="head"><h2 class="tag-h">Resultados</h2><p class="lede muted">O que mudou, o que os dados mostram e o que fazer a seguir.</p></div>
+  <div class="chips" id="resFilter" role="group" aria-label="Filtrar por prato" style="margin-bottom:26px"></div>
+  <div id="resEmpty" class="box" hidden></div>
+  <div id="resBody">
+    <div class="dash-hero">
+      <div class="panel-red">
+        <span class="eyebrow">Conclusão</span>
+        <h2 id="resHeadline" style="font-size:clamp(1.7rem,3.6vw,2.5rem)"></h2>
+        <p id="resSub"></p>
+      </div>
+      <div class="gain">
+        <div class="gain-shapes" aria-hidden="true"><i class="g-half"></i><i class="g-arc"></i></div>
+        <span class="eyebrow dark" id="gainLbl">Ganho estimado</span>
+        <div class="gain-num" id="gainNum"></div>
+        <p class="hint" id="gainTxt" style="margin:6px 0 0"></p>
+      </div>
+    </div>
+
+    <h3 class="sec-h">Indicadores <span class="hint">quanto menor, melhor</span></h3>
+    <div class="metrics" id="metrics"></div>
+
+    <div class="dash-2">
+      <div>
+        <h3 class="sec-h">O que os dados mostram</h3>
+        <div id="insights" class="ins-list"></div>
+      </div>
+      <div>
+        <h3 class="sec-h">Iniciativas recomendadas</h3>
+        <div id="actions" class="act-list"></div>
+      </div>
+    </div>
+
+    <h3 class="sec-h">Desempenho por prato <span class="hint" id="dishLbl"></span></h3>
+    <div class="card-w" style="padding:10px 18px;margin-bottom:38px"><div class="tablebox"><table id="dishTbl"></table></div></div>
+
+    <h3 class="sec-h">Dia a dia</h3>
+    <div class="card-w">
+      <div class="legend">
+        <span><i style="background:var(--sold)"></i>Vendido</span>
+        <span><i style="background:var(--sun)"></i>Foi para o lixo</span>
+        <span><i style="border:2px solid var(--sun)"></i>Doado ou reaproveitado</span>
+        <span><i style="background:var(--brand);height:4px;margin-top:6px"></i>Algum prato acabou cedo</span>
+        <span><i style="background:var(--brand-soft)"></i>Dia com plano confirmado</span>
+      </div>
+      <p class="hint" style="margin:8px 0 0">Cada barra é um dia. A altura é tudo o que foi preparado.</p>
+      <div class="tablebox" id="chartBox"></div>
+    </div>
+
+    <details class="card-w" style="margin-top:22px">
+      <summary>Histórico: plano confirmado x o que aconteceu</summary>
+      <div class="tablebox" style="margin-top:12px"><table id="pvr"></table></div>
+    </details>
   </div>
 </section>
 
 <!-- RESTAURANTE -->
 <section class="view" id="v-cfg" hidden>
-  <div class="head"><h2 class="tag-h">Meu restaurante</h2><p class="lede muted">Essas informações personalizam as sugestões. Preço e custo definem quanto custa sobrar e quanto custa faltar.</p></div>
+  <div class="head"><h2 class="tag-h">Meu restaurante</h2><p class="lede muted">Essas informações personalizam as sugestões. Preço e custo definem quanto custa preparar demais e quanto custa faltar.</p></div>
   <form id="cfgForm" novalidate>
     <div class="card-w">
       <h3>Dados do restaurante</h3>
@@ -545,7 +629,7 @@ function previewCard(c){
   const l=[]; for(let i=0;i<p;i++) l.push(i<v?"":(i<v+re?"re":"w"));
   c.querySelector(".trays").innerHTML=trays(l);
   const pr=prato(c.dataset.p), sb=Math.max(0,p-v), desc=sb-re;
-  c.querySelector(".tally").innerHTML = x.prep===""&&x.vend==="" ? `<span class="muted">Não serviu? Deixe em branco.</span>` : v>p ? `<b class="bad">Vendidas não podem passar das preparadas.</b>` : `<b>${v}</b> vendidas, <b>${sb}</b> sobraram${re?` (${re} doadas ou reaproveitadas)`:""}${desc?`. Descarte: ${brl(desc*pr.custo)}`:""}`;
+  c.querySelector(".tally").innerHTML = x.prep===""&&x.vend==="" ? `<span class="muted">Não serviu? Deixe em branco.</span>` : v>p ? `<b class="bad">Vendidas não podem passar das preparadas.</b>` : `<b>${v}</b> vendidas, <b>${sb}</b> sem vender${re?` (${re} doadas ou reaproveitadas)`:""}${desc?`. Descarte: ${brl(desc*pr.custo)}`:""}`;
 }
 $("#regCards").addEventListener("input",e=>{ const c=e.target.closest("[data-p]"); if(c) previewCard(c); });
 $("#regCards").addEventListener("click",e=>{ const b=e.target.closest("[data-ac]"); if(!b) return; const c=b.closest("[data-p]");
@@ -560,7 +644,7 @@ $("#regForm").addEventListener("submit",e=>{
     if(x.prep===""||x.vend==="") err=`${nome}: informe quanto preparou e quanto vendeu.`;
     else if(+x.vend>+x.prep) err=`${nome}: vendidas não podem passar das preparadas.`;
     else if(x.enc>+x.vend) err=`${nome}: encomendas não podem passar das vendidas.`;
-    else if(x.reap>+x.prep-+x.vend) err=`${nome}: doadas ou reaproveitadas não podem passar da sobra.`;
+    else if(x.reap>+x.prep-+x.vend) err=`${nome}: doadas ou reaproveitadas não podem passar do que ficou sem vender.`;
     else if(!x.ac) err=`${nome}: responda se acabou antes de encerrar.`;
     else out.push({data:d,prato:c.dataset.p,preparadas:+x.prep,vendidas:+x.vend,encomendas:x.enc,reaproveitadas:x.reap,acabou:x.ac==="sim",acabouAs:x.ac==="sim"?x.hora:null});
   });
@@ -665,46 +749,138 @@ $("#planCopy").addEventListener("click",async()=>{
 /* ================= 3. resultados ================= */
 let resFiltro="all";
 function agg(rs){
-  const dias=new Set(rs.map(r=>r.data)).size||1, vend=rs.reduce((s,r)=>s+r.vendidas,0);
-  const desc=rs.reduce((s,r)=>s+descarte(r),0), reap=rs.reduce((s,r)=>s+(r.reaproveitadas||0),0);
+  const datas=new Set(rs.map(r=>r.data)), dias=datas.size||1, vend=rs.reduce((s,r)=>s+r.vendidas,0);
+  const desc=rs.reduce((s,r)=>s+descarte(r),0), reap=rs.reduce((s,r)=>s+(r.reaproveitadas||0),0), sb=rs.reduce((s,r)=>s+sobra(r),0);
   const custo=rs.reduce((s,r)=>s+descarte(r)*prato(r.prato).custo,0);
   const perd=rs.filter(r=>r.acabou===true).reduce((s,r)=>{const p=prato(r.prato);return s+(r.vendidas-(r.encomendas||0))*(uplift(r.acabouAs)-1)*(p.preco-p.custo);},0);
   const nf=rs.filter(r=>r.acabou===true).length;
-  return {n:new Set(rs.map(r=>r.data)).size,por100:vend?desc/vend*100:0,falta:rs.length?nf/rs.length*100:0,custo:custo/dias,perd:perd/dias,reap};
+  return {n:datas.size,regs:rs.length,vend,desc,sobra:sb,reap,vendDia:vend/dias,por100:vend?desc/vend*100:0,falta:rs.length?nf/rs.length*100:0,custo:custo/dias,perd:perd/dias,reapPct:sb?reap/sb*100:0};
 }
+const pct=(a,d)=>a?Math.round((d-a)/a*100):0;
+const mediaHora=rs=>{ const m=rs.map(r=>toMin(r.acabouAs)).filter(x=>x!=null).sort((a,b)=>a-b); return m.length?toHH(Math.round(m[Math.floor(m.length/2)]/5)*5):null; };
 function renderRes(){
   const ps=S.config.pratos.filter(p=>S.recs.some(r=>r.prato===p.id));
+  if(resFiltro!=="all"&&!ps.find(p=>p.id===resFiltro)) resFiltro="all";
   $("#resFilter").innerHTML=[`<button type="button" class="chip" data-f="all" aria-pressed="${resFiltro==="all"}">Todos os pratos</button>`].concat(ps.map(p=>`<button type="button" class="chip" data-f="${p.id}" aria-pressed="${resFiltro===p.id}">${esc(p.nome)}</button>`)).join("");
   const rs=S.recs.filter(r=>(resFiltro==="all"||r.prato===resFiltro)&&prato(r.prato));
-  if(!rs.length){ $("#resLede").textContent="Registre alguns dias para ver os resultados."; $("#metrics").innerHTML=""; $("#chartBox").innerHTML=""; $("#pvr").innerHTML=""; return; }
-  const sem=rs.filter(r=>!S.plans[pkey(r.data,r.prato)]), com=rs.filter(r=>S.plans[pkey(r.data,r.prato)]);
-  const A=agg(sem), D=agg(com);
-  $("#resLede").textContent = com.length&&sem.length ? `Comparando ${A.n} dias sem plano com ${D.n} dias seguindo o plano confirmado.` : com.length ? `${D.n} dias com plano. Ainda não há dias sem plano para comparar.` : `${A.n} dias registrados. Confirme planos na tela Plano de amanhã para comparar antes e depois.`;
-  const both=com.length&&sem.length, ref=com.length?D:A;
-  const m=[["Descarte a cada 100 vendidas","por100",v=>v.toFixed(1)],["Vezes que um prato acabou cedo","falta",v=>Math.round(v)+"%"],["Custo do descarte por dia","custo",brl],["Lucro perdido por falta, por dia","perd",brl]];
-  $("#metrics").innerHTML=m.map(([t,k,f])=>{ const a=A[k],d=D[k], diff=a?Math.round((d-a)/a*100):0, better=d<=a;
-    return `<div class="metric"><h4>${t}</h4><div class="vs">${both?`<span class="before" title="sem plano">${f(a)}</span>`:""}<span class="after">${f(ref[k])}</span></div>${both?`<span class="delta ${better?"good":"bad"}">${a?(diff>0?"+":"")+diff+"%":"sem base"}${better?"":" (piorou)"}</span>`:""}</div>`; }).join("")
-    + `<div class="metric" style="border-top-color:var(--sun)"><h4>Doado ou reaproveitado</h4><div class="vs"><span class="after">${A.reap+D.reap}</span><span class="muted">${unid()}</span></div></div>`;
-  // gráfico
+  $("#resEmpty").hidden=!!rs.length; $("#resBody").hidden=!rs.length;
+  if(!rs.length){ $("#resEmpty").innerHTML=`<b>Ainda não há dias registrados.</b> <button type="button" class="linkbtn" data-go="reg">Registrar o primeiro dia</button>`; bindGo(); return; }
+  const temPlano=r=>!!S.plans[pkey(r.data,r.prato)];
+  const sem=rs.filter(r=>!temPlano(r)), com=rs.filter(temPlano);
+  const A=agg(sem), D=agg(com), both=!!(sem.length&&com.length);
+  const ref=com.length>=5?com:rs.filter(r=>r.data>=addDays(today(),-28));
+  const refLbl=com.length>=5?"nos dias com plano":"nas últimas 4 semanas";
+  const R=agg(ref.length?ref:rs);
+  const nomeF=resFiltro==="all"?"":` de ${prato(resFiltro).nome}`;
+  const U=unid();
+
+  /* ---- conclusão ---- */
+  let head, sub;
+  if(both){
+    const dd=pct(A.por100,D.por100), df=D.falta-A.falta;
+    if(dd<=-10&&df<=2) head=`Com o plano, o descarte${nomeF} caiu ${Math.abs(dd)}% e a comida acabou cedo ${df<-2?"menos vezes":"com a mesma frequência"}.`;
+    else if(dd<=-10) head=`O descarte${nomeF} caiu ${Math.abs(dd)}%, mas a comida passou a acabar cedo com mais frequência.`;
+    else if(dd>=10) head=`Com o plano, o descarte${nomeF} subiu ${dd}%. Vale revisar os ajustes feitos à mão.`;
+    else head=`O descarte${nomeF} ficou parecido com e sem o plano.`;
+    sub=`Comparando ${A.n} dias em que a quantidade era decidida sem o plano com ${D.n} dias seguindo o plano confirmado.`;
+  } else if(com.length){ head=`Todos os ${D.n} dias registrados${nomeF} já seguem o plano.`; sub="Ainda não há dias sem plano para comparar o antes e o depois."; }
+  else { head=`Você já registrou ${A.n} dia${A.n>1?"s":""}${nomeF}. Falta confirmar planos para medir o efeito.`; sub="Confirme o plano de amanhã por duas semanas e esta tela compara o antes e o depois."; }
+  $("#resHeadline").textContent=head; $("#resSub").textContent=sub;
+  const diasMes=S.config.diasAbertos.length*4.33;
+  if(both){
+    const ganho=(A.custo-D.custo)+(A.perd-D.perd);
+    $("#gainLbl").textContent=ganho>=0?"Ganho estimado por mês":"Perda estimada por mês";
+    $("#gainNum").innerHTML=`${brl(Math.abs(ganho*diasMes))}`;
+    $("#gainTxt").textContent=`Menos comida no lixo (${brl(A.custo-D.custo)} por dia) e menos venda perdida por falta (${brl(A.perd-D.perd)} por dia), em ${Math.round(diasMes)} dias de funcionamento por mês.`;
+  } else {
+    $("#gainLbl").textContent="Descarte por mês, no ritmo atual";
+    $("#gainNum").innerHTML=brl(R.custo*diasMes);
+    $("#gainTxt").textContent=`Custo da comida que vai para o lixo ${refLbl}, projetado para ${Math.round(diasMes)} dias de funcionamento.`;
+  }
+
+  /* ---- indicadores ---- */
+  const m=[
+    ["Descarte a cada 100 vendidas","por100",v=>v.toFixed(1).replace(".",","),v=>`De cada 100 ${U} vendidas, quantas foram para o lixo.`],
+    ["Vezes que um prato acabou cedo","falta",v=>Math.round(v)+"%",v=>`Em ${Math.round(v)} de cada 100 vezes que um prato foi servido, ele acabou antes do fim do almoço.`],
+    ["Custo do descarte por dia","custo",brl,()=>"Quanto custou a comida que foi para o lixo."],
+    ["Lucro perdido por falta, por dia","perd",brl,()=>"Estimativa do que deixou de ganhar quando a comida acabou e o cliente não comprou."]];
+  const refM=com.length?D:A;
+  $("#metrics").innerHTML=m.map(([t,k,f,ex])=>{ const a=A[k],d=D[k],diff=pct(a,d),better=d<=a;
+    return `<div class="metric"><h4>${t}</h4><div class="vs">${both?`<span class="before" title="sem plano">${f(a)}</span>`:""}<span class="after">${f(refM[k])}</span></div>${both?`<span class="delta ${better?"good":"bad"}">${a?(diff>0?"+":"")+diff+"% "+(better?"melhorou":"piorou"):"sem base"}</span>`:""}<p class="exp">${ex(refM[k])}</p></div>`; }).join("")
+    +`<div class="metric" style="border-top-color:var(--sun)"><h4>Doado ou reaproveitado</h4><div class="vs"><span class="after">${A.reap+D.reap}</span><span class="muted">${U}</span></div><p class="exp">Excedente que não foi para o lixo. Não conta como descarte.</p></div>`;
+
+  /* ---- por prato (sempre todos) ---- */
+  const refAll=S.recs.filter(r=>prato(r.prato)&&(com.length>=5?temPlano(r):r.data>=addDays(today(),-28)));
+  const porPrato=S.config.pratos.map(p=>{ const x=refAll.filter(r=>r.prato===p.id); if(x.length<3) return null; const s=agg(x);
+    s.p=p; s.hora=mediaHora(x.filter(r=>r.acabou===true)); s.status=(s.por100>15||s.falta>30)?"cr":(s.por100>8||s.falta>18)?"at":"ok"; s.recs=x; return s; }).filter(Boolean);
+  $("#dishLbl").textContent=refLbl;
+  $("#dishTbl").innerHTML=porPrato.length?`<tr><th>Situação</th><th>Prato</th><th>Vendidas por dia</th><th>Descarte a cada 100</th><th>Acabou cedo</th><th>Custo do descarte/dia</th></tr>`+porPrato.map(s=>`<tr><td><span class="status ${s.status}">${{ok:"Equilibrado",at:"Atenção",cr:"Crítico"}[s.status]}</span></td><td>${esc(s.p.nome)}</td><td class="n">${s.vendDia.toFixed(1).replace(".",",")}</td><td class="n">${s.por100.toFixed(1).replace(".",",")}</td><td class="n">${Math.round(s.falta)}%</td><td class="n">${brl(s.custo)}</td></tr>`).join(""):`<tr><td style="white-space:normal">Registre pelo menos 3 dias de cada prato para ver o desempenho.</td></tr>`;
+
+  /* ---- insights e iniciativas ---- */
+  const ins=[], act=[];
+  const alvo=resFiltro==="all"?porPrato:porPrato.filter(s=>s.p.id===resFiltro);
+  const piorDesc=[...alvo].sort((a,b)=>b.por100-a.por100)[0], piorFalta=[...alvo].sort((a,b)=>b.falta-a.falta)[0];
+  const melhor=alvo.filter(s=>s.status==="ok").sort((a,b)=>a.por100-b.por100)[0];
+  if(both&&D.por100<A.por100*.9) ins.push(["good","Bom sinal",`O plano reduziu o descarte em ${Math.abs(pct(A.por100,D.por100))}%`,`Eram ${A.por100.toFixed(1).replace(".",",")} ${U} no lixo a cada 100 vendidas. Agora são ${D.por100.toFixed(1).replace(".",",")}.`]);
+  if(piorDesc&&piorDesc.por100>8){
+    ins.push(["warn","Atenção",`${piorDesc.p.nome} é o prato com mais excedente`,`${piorDesc.por100.toFixed(1).replace(".",",")} descartadas a cada 100 vendidas ${refLbl}, custando ${brl(piorDesc.custo)} por dia.`]);
+    act.push({prio:piorDesc.por100>15?"alta":"media",t:`Vender o excedente de ${piorDesc.p.nome} no fim do almoço`,p:`Em média ${(piorDesc.desc/piorDesc.n).toFixed(1).replace(".",",")} ficam sem vender por dia. Uma oferta de última hora, meia hora antes de encerrar, recupera parte do custo.`,i:`até ${brl(piorDesc.custo*diasMes)} por mês`});
+  }
+  if(piorFalta&&piorFalta.falta>18){
+    ins.push(["bad","Atenção",`${piorFalta.p.nome} acaba cedo com frequência`,`Acabou antes do fim em ${Math.round(piorFalta.falta)}% dos dias${piorFalta.hora?`, em geral por volta das ${piorFalta.hora}`:""}. Quem chega depois vai embora sem comprar.`]);
+    act.push({prio:"alta",t:`Abrir encomendas de ${piorFalta.p.nome} até as 10h`,p:`Encomenda confirmada entra direto no plano e diminui a incerteza do dia. Divulgue no WhatsApp e no balcão.`,i:piorFalta.perd>0?`até ${brl(piorFalta.perd*diasMes)} por mês em vendas perdidas`:"menos clientes sem comida"});
+  }
+  if(melhor&&(!piorDesc||melhor.p.id!==piorDesc.p.id)) ins.push(["good","Bom sinal",`${melhor.p.nome} está equilibrado`,`Pouco descarte (${melhor.por100.toFixed(1).replace(".",",")} a cada 100) e raramente acaba cedo (${Math.round(melhor.falta)}% dos dias).`]);
+  // dia da semana
+  const porDia={}; (ref.length?ref:rs).forEach(r=>{ const w=wd(r.data); porDia[w]=porDia[w]||{d:new Set(),desc:0}; porDia[w].d.add(r.data); porDia[w].desc+=descarte(r); });
+  const dd=Object.entries(porDia).map(([w,v])=>({w:+w,med:v.desc/v.d.size,n:v.d.size})).filter(x=>x.n>=2);
+  if(dd.length>=3){ const geral=dd.reduce((s,x)=>s+x.med,0)/dd.length, top=dd.sort((a,b)=>b.med-a.med)[0];
+    if(top.med>=3&&top.med>geral*1.35){ ins.push(["warn","Padrão",`${DIAS_PL[top.w][0].toUpperCase()+DIAS_PL[top.w].slice(1)} são os dias com mais excedente`,`Em média ${top.med.toFixed(1).replace(".",",")} ${U} no lixo, contra ${geral.toFixed(1).replace(".",",")} na média dos dias.`]);
+      act.push({prio:"media",t:`Rever o cardápio ou fazer promoção às ${DIAS_PL[top.w]}`,p:`É o dia com mais comida sem vender. Um prato a menos ou uma promoção no horário mais fraco equilibra a produção.`,i:"menos descarte no pior dia"}); } }
+  // ajustes manuais
+  const planRecs=(ref.length?ref:rs).filter(temPlano), ajust=planRecs.filter(r=>S.plans[pkey(r.data,r.prato)].final!==S.plans[pkey(r.data,r.prato)].sug), seguiu=planRecs.filter(r=>!ajust.includes(r));
+  if(ajust.length>=2&&seguiu.length>=2){ const sa=ajust.reduce((s,r)=>s+descarte(r),0)/ajust.length, ss=seguiu.reduce((s,r)=>s+descarte(r),0)/seguiu.length;
+    ins.push([sa>ss*1.2?"warn":"info","Seus ajustes",`Você mudou ${ajust.length} de ${planRecs.length} sugestões`,`Quando ajustou, ficaram em média ${sa.toFixed(1).replace(".",",")} sem vender por prato; quando seguiu a sugestão, ${ss.toFixed(1).replace(".",",")}.`]);
+    if(sa>ss*1.2) act.push({prio:"media",t:"Confiar mais na sugestão",p:"Os ajustes feitos à mão estão gerando mais excedente do que o número sugerido. Ajuste só quando houver um motivo concreto, como encomenda ou evento.",i:"menos descarte"});
+  } else if(planRecs.length>=5&&!ajust.length) ins.push(["info","Seus ajustes","Você seguiu todas as sugestões","Assim a comparação fica limpa: a diferença nos resultados vem do plano."]);
+  // reaproveitamento
+  if(R.sobra>=5){ if(R.reapPct<30){ ins.push(["warn","Oportunidade",`Só ${Math.round(R.reapPct)}% do excedente foi doado ou reaproveitado`,`${R.desc} ${U} foram para o lixo ${refLbl}.`]);
+      act.push({prio:"media",t:"Combinar a doação do excedente",p:"Uma parceria com uma instituição próxima ou um programa de doação de excedentes evita que a comida vá para o lixo.",i:`${R.desc} ${U} a menos no lixo`}); }
+    else ins.push(["good","Bom sinal",`${Math.round(R.reapPct)}% do excedente foi doado ou reaproveitado`,"Boa parte do que não foi vendido deixou de virar desperdício."]); }
+  // qualidade dos dados
+  const pend=rs.filter(r=>r.acabou==null&&sobra(r)===0).length;
+  const ini0=S.recs.length?S.recs[0].data:today(); let faltando=0; for(let d=[addDays(today(),-14),ini0].sort()[1]; d<today(); d=addDays(d,1)){ if(isOpen(d)&&pratosDoDia(d).length&&!S.recs.some(r=>r.data===d)) faltando++; }
+  if(pend||faltando){ ins.push(["info","Dados",`${faltando?`${faltando} dia${faltando>1?"s":""} sem registro nas últimas 2 semanas`:""}${faltando&&pend?" e ":""}${pend?`${pend} pergunta${pend>1?"s":""} sem resposta`:""}`,"Sem esses dados, a sugestão fica menos precisa."]);
+    act.push({prio:faltando>2?"alta":"baixa",t:faltando?"Registrar todos os dias de funcionamento":"Responder as perguntas pendentes",p:faltando?"Leva um minuto no fim do almoço. Dias em branco deixam a sugestão menos confiável.":"Estão na tela Plano de amanhã: diga se o prato acabou antes de encerrar.",i:"sugestões mais precisas"}); }
+  if(!com.length) act.unshift({prio:"alta",t:"Seguir o plano por duas semanas",p:"Confirme o plano de amanhã todos os dias. Depois disso esta tela mostra quanto o descarte e a falta mudaram.",i:"medir o resultado"});
+  if(!ins.length) ins.push(["info","Ainda cedo","Poucos dados para tirar conclusões","Com pelo menos 3 registros de cada prato aparecem os padrões."]);
+  if(!act.length) act.push({prio:"baixa",t:"Manter a rotina",p:"Os indicadores estão equilibrados. Continue registrando e confirmando o plano.",i:"resultado sustentado"});
+  const ordem={alta:0,media:1,baixa:2}; act.sort((a,b)=>ordem[a.prio]-ordem[b.prio]);
+  $("#insights").innerHTML=ins.slice(0,7).map(([c,k,t,p])=>`<div class="ins ${c}"><span class="k">${k}</span><b class="t">${esc(t)}</b><p>${esc(p)}</p></div>`).join("");
+  $("#actions").innerHTML=act.slice(0,5).map((a,i)=>`<div class="act"><span class="num">${i+1}</span><div><b class="t">${esc(a.t)}</b><p>${esc(a.p)}</p><div class="meta"><span class="prio ${a.prio}">Prioridade ${{alta:"alta",media:"média",baixa:"baixa"}[a.prio]}</span><span class="imp">Impacto: ${esc(a.i)}</span></div></div></div>`).join("");
+
+  /* ---- gráfico ---- */
   const datas=[...new Set(rs.map(r=>r.data))].sort();
-  const dia=datas.map(d=>{ const x=rs.filter(r=>r.data===d); return {d,prep:x.reduce((s,r)=>s+r.preparadas,0),vend:x.reduce((s,r)=>s+r.vendidas,0),reap:x.reduce((s,r)=>s+(r.reaproveitadas||0),0),ac:x.some(r=>r.acabou===true),plan:x.some(r=>S.plans[pkey(r.data,r.prato)])}; });
-  const H=260,pad={l:36,r:10,t:16,b:40}, bw=26, W=Math.max(620,pad.l+pad.r+dia.length*bw);
+  const dia=datas.map(d=>{ const x=rs.filter(r=>r.data===d); return {d,prep:x.reduce((s,r)=>s+r.preparadas,0),vend:x.reduce((s,r)=>s+r.vendidas,0),reap:x.reduce((s,r)=>s+(r.reaproveitadas||0),0),ac:x.some(r=>r.acabou===true),plan:x.some(temPlano)}; });
+  const H=260,pad={l:36,r:10,t:22,b:40}, bw=26, W=Math.max(620,pad.l+pad.r+dia.length*bw);
   const max=Math.max(5,...dia.map(x=>x.prep))*1.12, y=v=>H-pad.b-(v/max)*(H-pad.t-pad.b);
   const step=max>120?50:max>60?20:max>25?10:5;
-  let g=`<svg class="chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="width:100%;min-width:${W}px" role="img" aria-label="Gráfico diário de ${unid()} preparadas, vendidas e que sobraram">`;
+  let g=`<svg class="chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="width:100%;min-width:${W}px;margin-top:10px" role="img" aria-label="Gráfico diário de ${U} preparadas, vendidas e que sem vender">`;
   dia.forEach((x,i)=>{ if(x.plan) g+=`<rect x="${pad.l+i*bw}" y="${pad.t}" width="${bw}" height="${H-pad.b-pad.t}" fill="var(--brand-soft)" opacity=".6"/>`; });
+  const pi=dia.findIndex(x=>x.plan); if(pi>0) g+=`<text x="${pad.l+pi*bw+4}" y="${pad.t-7}" font-size="11" font-weight="700" fill="var(--brand)">com o plano →</text><text x="${pad.l+pi*bw-4}" y="${pad.t-7}" font-size="11" text-anchor="end" fill="var(--muted)">← sem plano</text>`;
   for(let v=0;v<max;v+=step) g+=`<line x1="${pad.l}" x2="${W-pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${pad.l-6}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${v}</text>`;
   dia.forEach((x,i)=>{ const bx=pad.l+i*bw+5, w=bw-10, sb=x.prep-x.vend, re=Math.min(x.reap,sb), de=sb-re;
-    g+=`<rect x="${bx}" y="${y(x.vend)}" width="${w}" height="${y(0)-y(x.vend)}" fill="var(--sold)" rx="2"><title>${fmt(x.d)}: ${x.vend} vendidas, ${sb} sobraram</title></rect>`;
-    if(de) g+=`<rect x="${bx}" y="${y(x.vend+de)}" width="${w}" height="${y(x.vend)-y(x.vend+de)}" fill="var(--sun)" rx="2"><title>${de} descartadas</title></rect>`;
+    g+=`<rect x="${bx}" y="${y(x.vend)}" width="${w}" height="${y(0)-y(x.vend)}" fill="var(--sold)" rx="2"><title>${fmt(x.d)}: ${x.vend} vendidas, ${sb} sem vender</title></rect>`;
+    if(de) g+=`<rect x="${bx}" y="${y(x.vend+de)}" width="${w}" height="${y(x.vend)-y(x.vend+de)}" fill="var(--sun)" rx="2"><title>${de} foram para o lixo</title></rect>`;
     if(re) g+=`<rect x="${bx+1}" y="${y(x.prep)+1}" width="${w-2}" height="${Math.max(1,y(x.vend+de)-y(x.prep)-2)}" fill="none" stroke="var(--sun)" stroke-width="2" rx="2"><title>${re} doadas ou reaproveitadas</title></rect>`;
-    if(x.ac) g+=`<rect x="${bx-2}" y="${y(x.prep)-7}" width="${w+4}" height="4" fill="var(--brand)"><title>Algo acabou cedo</title></rect>`;
+    if(x.ac) g+=`<rect x="${bx-2}" y="${y(x.prep)-7}" width="${w+4}" height="4" fill="var(--brand)"><title>Algum prato acabou cedo</title></rect>`;
     g+=`<text x="${bx+w/2}" y="${H-pad.b+15}" text-anchor="middle" font-size="10" fill="var(--muted)">${dt(x.d).getDate()}</text>`;
     if(wd(x.d)===1) g+=`<text x="${bx+w/2}" y="${H-pad.b+29}" text-anchor="middle" font-size="10" fill="var(--muted)">seg</text>`; });
   $("#chartBox").innerHTML=g+"</svg>";
-  // plano x real
-  const keys=Object.keys(S.plans).filter(k=>{const [d,id]=k.split("|"); return (resFiltro==="all"||id===resFiltro)&&prato(id);}).sort().reverse().slice(0,14);
-  $("#pvr").innerHTML= keys.length? `<tr><th>Dia</th><th>Prato</th><th>Sugestão</th><th>Preparou</th><th>Vendeu</th><th>Sobra</th><th>Observação</th></tr>`+keys.map(k=>{const [d,id]=k.split("|"),p=S.plans[k],r=rec(d,id);
+
+  /* ---- histórico ---- */
+  const keys=Object.keys(S.plans).filter(k=>{const [d,id]=k.split("|"); return (resFiltro==="all"||id===resFiltro)&&prato(id);}).sort().reverse().slice(0,21);
+  $("#pvr").innerHTML= keys.length? `<tr><th>Dia</th><th>Prato</th><th>Sugestão</th><th>Preparou</th><th>Vendeu</th><th>Excedente</th><th>Observação</th></tr>`+keys.map(k=>{const [d,id]=k.split("|"),p=S.plans[k],r=rec(d,id);
       return `<tr><td>${DIAS_CURTO[wd(d)]} ${fmt(d)}</td><td>${esc(prato(id).nome)}</td><td class="n">${p.sug}</td><td class="n">${r?r.preparadas:p.final}</td><td class="n">${r?r.vendidas:"–"}</td><td class="n">${r?sobra(r):"–"}</td><td>${p.motivo?esc(p.motivo):""}${r&&r.acabou?' <span class="badge">acabou cedo</span>':""}${!r?' <span class="hint">aguardando registro</span>':""}</td></tr>`;}).join("")
     : `<tr><td style="white-space:normal">Nenhum plano confirmado ainda.</td></tr>`;
 }
