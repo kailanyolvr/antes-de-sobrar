@@ -416,18 +416,6 @@ details.card-w summary{font-family:var(--display);font-size:1.15rem}
       <div class="chips" id="cDias" style="margin-top:8px"></div>
     </div>
     <div class="card-w" style="margin-top:22px">
-      <h3>Premissas do cálculo</h3>
-      <p class="sub">Regras iniciais para testar num piloto. Não são percentuais comprovados: ajuste conforme o que observar.</p>
-      <div class="field" style="margin-top:16px;max-width:560px"><label for="cUplift">Quando um prato acaba cedo, aumentar a procura estimada em até (%)</label><input class="num" type="number" id="cUplift" min="0" max="100" step="5" inputmode="numeric" style="max-width:140px">
-        <span class="hint">O aumento máximo vale quando o prato acaba logo no início do almoço e diminui até zero perto do fim. Se você anotar no registro quantos clientes pediram depois que acabou, o app usa esse número no lugar da premissa.</span></div>
-      <div class="box" style="margin-top:4px">
-        <p style="margin:0 0 8px"><b>Outras regras usadas na sugestão</b></p>
-        <p class="hint" style="margin:0 0 6px"><b>Histórico:</b> últimos 4 dias iguais da semana, com mais peso para os recentes. Com menos de 2, usa os últimos dias de serviço.</p>
-        <p class="hint" style="margin:0 0 6px"><b>Folga:</b> parte da variação entre semanas, maior para pratos com mais lucro, mínimo de 1 unidade.</p>
-        <p class="hint" style="margin:0"><b>Confiança:</b> alta com 3 ou mais semanas de vendas parecidas (variação até 15%); média quando as vendas variam mais, falta uma resposta ou o dia é fora do comum; baixa com pouco histórico.</p>
-      </div>
-    </div>
-    <div class="card-w" style="margin-top:22px">
       <h3>Pratos</h3>
       <p class="sub">Marque em que dias cada prato é servido. Prato desativado some do registro e do plano, mas o histórico fica guardado.</p>
       <div id="cPratos"></div>
@@ -741,7 +729,7 @@ function renderPlan(){
         <tr><th>Dia</th><th>Vendas avulsas</th><th>Procura estimada</th><th>Peso</th><th></th></tr>
         ${P.rows.map((x,i)=>`<tr><td>${fmt(x.r.data)}</td><td class="n">${x.r.vendidas-(x.r.encomendas||0)}</td><td class="n">${x.v.toFixed(1)}</td><td>${i+1}</td><td>${x.nota?`<span class="badge ${x.pend?"y":""}">${x.nota}</span>`:""}</td></tr>`).join("")}
       </table></div><p class="hint"><b>Regras.</b> Média dos mesmos dias da semana, com mais peso para os recentes. Folga = variação (±${P.sd.toFixed(1)}) × ${P.fator.toFixed(2)}, maior para pratos com mais lucro.</p>
-      <p class="hint"><b>Limites.</b> Regras iniciais, a validar num piloto. O aumento de até ${upPct()}% quando acaba cedo é uma premissa (ajustável em Meu restaurante), não um valor comprovado.</p></details>`:""}
+      <p class="hint"><b>Limites.</b> Regras iniciais, a validar num piloto. O aumento de até ${upPct()}% quando acaba cedo é uma premissa, não um valor comprovado.</p></details>`:""}
     </div>`;}).join("");
 }
 function setQty(c,v){ const k=pkey(planDate,c.dataset.p); v=Math.max(0,Math.round(v||0)); edits[k]={...(edits[k]||{}),final:v}; c.querySelector(".qty").value=v;
@@ -816,7 +804,7 @@ function renderRes(){
     const ganho=(A.custo-D.custo)+(A.perd-D.perd);
     $("#gainLbl").textContent=ganho>=0?"Ganho estimado por mês":"Perda estimada por mês";
     $("#gainNum").innerHTML=`${brl(Math.abs(ganho*diasMes))}`;
-    $("#gainTxt").textContent=`Menos comida no lixo (${brl(A.custo-D.custo)} por dia) e menos venda perdida por falta (${brl(A.perd-D.perd)} por dia), em ${Math.round(diasMes)} dias de funcionamento por mês. É uma estimativa: depende das premissas de Meu restaurante e de dados simulados ou de poucas semanas.`;
+    $("#gainTxt").textContent=`Menos comida no lixo (${brl(A.custo-D.custo)} por dia) e menos venda perdida por falta (${brl(A.perd-D.perd)} por dia), em ${Math.round(diasMes)} dias de funcionamento por mês. É uma estimativa: depende de premissas iniciais e de dados simulados ou de poucas semanas.`;
   } else {
     $("#gainLbl").textContent="Descarte por mês, no ritmo atual";
     $("#gainNum").innerHTML=brl(R.custo*diasMes);
@@ -915,7 +903,7 @@ $("#resFilter").addEventListener("click",e=>{ const b=e.target.closest("[data-f]
 let draft=null;
 function renderCfg(){
   draft=JSON.parse(JSON.stringify(S.config));
-  $("#cNome").value=draft.nome; $("#cCidade").value=draft.cidade||""; $("#cAbre").value=draft.abre; $("#cFecha").value=draft.fecha; $("#cUnid").value=draft.unidade||"marmitas"; $("#cUplift").value=draft.upliftMax??30;
+  $("#cNome").value=draft.nome; $("#cCidade").value=draft.cidade||""; $("#cAbre").value=draft.abre; $("#cFecha").value=draft.fecha; $("#cUnid").value=draft.unidade||"marmitas";
   drawDias(); drawPratos(); $("#cfgErr").textContent="";
 }
 function drawDias(){ $("#cDias").innerHTML=[1,2,3,4,5,6,0].map(i=>`<button type="button" class="chip" data-dia="${i}" aria-pressed="${draft.diasAbertos.includes(i)}">${DIAS_CURTO[i]}</button>`).join(""); }
@@ -940,12 +928,12 @@ $("#cPratos").addEventListener("click",e=>{ const row=e.target.closest("[data-i]
 $("#addPrato").addEventListener("click",()=>{ draft.pratos.push({id:"p"+Date.now(),nome:"",preco:20,custo:9,dias:[...draft.diasAbertos],ativo:true}); drawPratos(); $(`#pn-${draft.pratos.length-1}`).focus(); });
 $("#cfgForm").addEventListener("submit",e=>{
   e.preventDefault();
-  draft.nome=$("#cNome").value.trim(); draft.cidade=$("#cCidade").value.trim(); draft.abre=$("#cAbre").value; draft.fecha=$("#cFecha").value; draft.unidade=$("#cUnid").value; draft.upliftMax=$("#cUplift").value===""?30:+$("#cUplift").value;
+  draft.nome=$("#cNome").value.trim(); draft.cidade=$("#cCidade").value.trim(); draft.abre=$("#cAbre").value; draft.fecha=$("#cFecha").value; draft.unidade=$("#cUnid").value;
   draft.pratos.forEach(p=>p.nome=p.nome.trim());
   const ruim=draft.pratos.find(p=>!p.nome)?"Dê um nome a todos os pratos ou remova os vazios."
     : draft.pratos.find(p=>p.preco<=0||p.custo<0)?"Preço precisa ser maior que zero e custo não pode ser negativo."
     : draft.pratos.find(p=>p.custo>=p.preco)?`${draft.pratos.find(p=>p.custo>=p.preco).nome}: o custo está igual ou acima do preço.`:"";
-  const err=!draft.nome?"Informe o nome do restaurante.":!(draft.upliftMax>=0&&draft.upliftMax<=100)?"O aumento quando acaba cedo precisa ficar entre 0% e 100%.":!draft.diasAbertos.length?"Marque pelo menos um dia de funcionamento.":toMin(draft.fecha)<=toMin(draft.abre)?"O horário de encerrar precisa ser depois do de abrir.":!draft.pratos.length?"Cadastre pelo menos um prato.":ruim;
+  const err=!draft.nome?"Informe o nome do restaurante.":!draft.diasAbertos.length?"Marque pelo menos um dia de funcionamento.":toMin(draft.fecha)<=toMin(draft.abre)?"O horário de encerrar precisa ser depois do de abrir.":!draft.pratos.length?"Cadastre pelo menos um prato.":ruim;
   $("#cfgErr").textContent=err; if(err) return;
   (draft._rm||[]).forEach(id=>{ S.recs=S.recs.filter(r=>r.prato!==id); Object.keys(S.plans).forEach(k=>{ if(k.endsWith("|"+id)) delete S.plans[k]; }); });
   delete draft._rm; const novo=S.novo; S.config=draft; delete S.novo; save(); toast("Restaurante salvo");
